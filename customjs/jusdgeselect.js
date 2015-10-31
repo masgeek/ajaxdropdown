@@ -1,7 +1,10 @@
 /**
  * Created by ANUBIS on 10/31/2015.
+ *
+ * WE will use th full jQuery name instead of $ so as to prevent script conflicts
+ * with  the rest of jotform scripts
  */
-jQuery( document ).ready(function() {
+jQuery(document).ready(function() {
 loadAllJudges('FIRST');
     //if selection on the first dropdown changes
 
