@@ -5,15 +5,19 @@
  * Date: 10/31/2015
  * Time: 4:48 PM
  */
+
 require_once "medoo.php"; //we use this as the ORM tool to query databases
 //im too lazy to write long queries
 
+//
+//
+
 $db = new medoo([
     'database_type' => 'mysql',
-    'database_name' => 'judges',
+    'database_name' => '',
     'server' => 'localhost',
-    'username' => 'sammy',
-    'password' => 'sammy',
+    'username' => '',
+    'password' => '',
     'charset' => 'utf8'
 ]);
 

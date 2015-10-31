@@ -32,7 +32,7 @@ function loadAllJudges(action)
     //alert('Jusde selected is '+filteredJudge);
     //now for the ajax function
     jQuery.ajax({
-        url: './phpfile/ddjudges.php',
+        url: 'phpfile/ddjudges.php',
         type:'POST',
         data:{
             judgename:filteredJudge
