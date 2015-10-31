@@ -1,0 +1,12 @@
+{
+  "name": "sammy/test",
+  "description": "test aja loading ",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "author's name",
+      "email": "email@example.com"
+    }
+  ]
+}
