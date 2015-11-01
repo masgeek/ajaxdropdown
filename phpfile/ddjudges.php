@@ -26,6 +26,7 @@ $filterQuery = "SELECT * FROM person WHERE IsJudge = 1 AND CONCAT_WS(', ',LastNa
 //die;
 $query = mysqli_query($link, $filterQuery);
 
+//if this [] fails replace with array()
 $jsonArr = array(
     array('value' => '',
         'text' => '--- Select Judge ---'
