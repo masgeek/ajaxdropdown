@@ -27,13 +27,13 @@ $filterQuery = "SELECT * FROM person WHERE IsJudge = 1 AND CONCAT_WS(', ',LastNa
 $query = mysqli_query($link, $filterQuery);
 
 $jsonArr = array(
-    ['value' => '',
+    array('value' => '',
         'text' => '--- Select Judge ---'
-    ],
-    [
+    ),
+    array(
         'value' => 'TBA',
         'text' => '--- TBA ---'
-    ]
+    )
 
 ); //this will hold the data we will echo as json
 while ($row = mysqli_fetch_array($query)) {
@@ -52,10 +52,10 @@ while ($row = mysqli_fetch_array($query)) {
     $textValue = $surname.", ".$fname.", ".$prov.", ".$div;
 
     //add the combine fieds to json array
-    $jsonArr[] = [
+    $jsonArr[] = array(
         'value' => $fullNames,
         'text' => $textValue
-    ];
+    );
     // echo "<option style='color: blue;' value='".$surname.",&nbsp;".$fname."'>".$surname.",&nbsp;".$fname.",&nbsp;".$prov.",&nbsp;".$div.'</option>';
     //lets combine the fields
 
