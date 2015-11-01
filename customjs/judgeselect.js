@@ -43,9 +43,9 @@ function loadAllJudges(action)
             //clear the current content of the select
             dropdownId.html('');//clear teh current dropdown
             //iterate over the data and append a select option*
-            dropdownId.append('<option id="">Select a judge</option>');
+           // dropdownId.append('<option id="">Select a judge</option>');
             jQuery.each(data, function(key, val){
-                dropdownId.append('<option id="' + val.judge_name + '">' + val.judge_name+ '</option>');
+                dropdownId.append('<option value="' + val.value + '">' + val.text+ '</option>');
             })
         },
         error: function( req, status, err ) {

@@ -11,14 +11,20 @@ require_once 'mysqlconn.php';
 
 $link->set_charset('utf8');
 
+$selectedJudge = isset($_POST['judgename'])? $_POST['judgename'] :'EMPTY';
 
-echo '<option value=" " selected>' . '--- Select Judge ---' . '</option>';
 
-echo '<option value=" " >' . ' ' . '</option>';
+//this is used to filter selected judge
+//CONCAT_WS(', ',LastName,FirstName) NOT IN('Ben, Judge')
 
-echo '<option value="TBA" >' . '--- TBA ---' . '</option>';
+$filterQuery = "SELECT * FROM person WHERE IsJudge = 1 AND CONCAT_WS(', ',LastName,FirstName) NOT IN('$selectedJudge') ORDER BY Province , Lastname , FirstName";
 
-$query = mysqli_query($link, "SELECT * FROM person WHERE IsJudge = 1 ORDER BY Province , Lastname , FirstName ");
+
+//var_dump($filterQuery);
+//"SELECT * FROM person WHERE IsJudge = 1 ORDER BY Province , Lastname , FirstName "
+
+//die;
+$query = mysqli_query($link, $filterQuery);
 
 $jsonArr = array(
     ['value' => '',
@@ -45,6 +51,7 @@ while ($row = mysqli_fetch_array($query)) {
     $fullNames = $surname.", ".$fname; //combine the names
     $textValue = $surname.", ".$fname.", ".$prov.", ".$div;
 
+    //add the combine fieds to json array
     $jsonArr[] = [
         'value' => $fullNames,
         'text' => $textValue
@@ -54,5 +61,4 @@ while ($row = mysqli_fetch_array($query)) {
 
 }
 
-//now echo this value as a json code
-var_dump($jsonArr);
+echo json_encode($jsonArr);
