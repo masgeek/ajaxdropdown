@@ -2,42 +2,57 @@
 /**
  * Created by PhpStorm.
  * User: ANUBIS
- * Date: 10/31/2015
- * Time: 4:48 PM
+ * Date: 11/1/2015
+ * Time: 11:41 AM
  */
 
-require_once "medoo.php"; //we use this as the ORM tool to query databases
-//im too lazy to write long queries
+require_once 'mysqlconn.php';
 
-//
-//
 
-$db = new medoo([
-    'database_type' => 'mysql',
-    'database_name' => '',
-    'server' => 'localhost',
-    'username' => '',
-    'password' => '',
-    'charset' => 'utf8'
-]);
+$link->set_charset('utf8');
 
-$selectedJudge = isset($_POST['judgename'])? $_POST['judgename'] :'';
 
-//now lets query the database
-//query is similar to
-//SELECT judge_name from judges_table where judge_name not in ($seelctedjudge);
+echo '<option value=" " selected>' . '--- Select Judge ---' . '</option>';
 
-$judgedata = $db->select('judges_table',
-    [
-        'judge_name'
+echo '<option value=" " >' . ' ' . '</option>';
+
+echo '<option value="TBA" >' . '--- TBA ---' . '</option>';
+
+$query = mysqli_query($link, "SELECT * FROM person WHERE IsJudge = 1 ORDER BY Province , Lastname , FirstName ");
+
+$jsonArr = array(
+    ['value' => '',
+        'text' => '--- Select Judge ---'
     ],
     [
-        'judge_name[!]'=>$selectedJudge
+        'value' => 'TBA',
+        'text' => '--- TBA ---'
     ]
-);
 
-//var_dump($judgedata);
-//return the data as json encoded data
-$resp = json_encode($judgedata);
+); //this will hold the data we will echo as json
+while ($row = mysqli_fetch_array($query)) {
 
-print_r($resp);
+    $memnum = $row['PersonID'];
+
+    $surname = $row['LastName'];
+
+    $fname = $row['FirstName'];
+
+    $prov = $row['Province'];
+
+    $div = $row['JudgingLevel'];
+
+    $fullNames = $surname.", ".$fname; //combine the names
+    $textValue = $surname.", ".$fname.", ".$prov.", ".$div;
+
+    $jsonArr[] = [
+        'value' => $fullNames,
+        'text' => $textValue
+    ];
+    // echo "<option style='color: blue;' value='".$surname.",&nbsp;".$fname."'>".$surname.",&nbsp;".$fname.",&nbsp;".$prov.",&nbsp;".$div.'</option>';
+    //lets combine the fields
+
+}
+
+//now echo this value as a json code
+var_dump($jsonArr);
